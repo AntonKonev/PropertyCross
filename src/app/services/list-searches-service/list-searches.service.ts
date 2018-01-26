@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from '../local-storage-service/local-storage.service';
+import { LocalStorageService } from 'src/app/services/local-storage-service/local-storage.service';
 
 @Injectable()
 export class ListSearchesService {
-    public listOfSearches = []
+    public listOfSearches = [];
 
     constructor(
         private localstorage: LocalStorageService
     ) {
-        !localstorage.haslocalStorage('listOfSearches') ? this.listOfSearches = [] : this.listOfSearches = localstorage.getData('listOfSearches');
+        this.listOfSearches = localstorage.getData('listOfSearches');
     }
 
 

@@ -1,81 +1,43 @@
-.container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.main-element {
-    width: 700px;
-    border: solid 2px blue;
-    border-radius: 30px;
-    text-align: center;
-    font-family: Arial;
-}
-
-.btn-faves {
+header .btn {
     position: absolute;
-    right: 30px;
-    top: 30px;
+    top: 40px;
+    right: 40px;
 }
-
-.header_h1 {
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
+.btn {
+    margin: 5px;
 }
-
-header {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.jumbotron {
+    margin: 30px;
+    padding: 40px;
 }
-
-.header-text {
-    text-align: center;
-    font-weight: 300;
-    margin: 10px;
-    margin-top: 0;
+.form-control {
+    margin: 5px;
 }
 
 .search-section {
-    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
-.error-message-section {
-    margin: 5px;
-    padding: 5px;
-}
-
-.recent-search {
-    margin-bottom: 10px;
+.container {
+    min-width: 750px;
+    max-width: 850px;
 }
 
 .recent-search-result {
-    border: solid 2px blue;
-    border-radius: 20px;
-    margin: 5px;
-    padding: 5px;
-}
-
-.recent-search-result:hover {
-    background: rgba(215, 241, 44, 0.08);
-    box-shadow: none;
     cursor: pointer;
-    border: solid 2px green;
-}
-
-.massage-recent-search {
-    border: solid 2px blue;
-    border-radius: 20px;
-    margin: 5px;
-    padding: 5px;
-}
-
-.inquiries {
-    border: solid 2px blue;
-    border-radius: 25px;
+    padding: 10px;
     margin: 10px;
+}
+
+.recent-search {
+    padding: 10px;
+}
+
+.recent-search .jumbotron {
+    padding: 10px;
+    margin: 20px;
 }
 
 
@@ -131,4 +93,3 @@ header {
     transform: rotate(-135deg);
     background: #bbb;
 }
-

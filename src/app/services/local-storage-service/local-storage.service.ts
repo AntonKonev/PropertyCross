@@ -4,7 +4,11 @@ import {Injectable} from '@angular/core';
 export class LocalStorageService {
 
     public getData(storageName: string) {
-        return JSON.parse(localStorage[storageName]);
+        if (!this.haslocalStorage(storageName)) {
+            return [];
+        } else {
+            return JSON.parse(localStorage[storageName]);
+        }
     }
 
     public setData(storageName: string, data) {
@@ -15,7 +19,7 @@ export class LocalStorageService {
         localStorage.removeItem(`${storageName}`);
     }
 
-    public haslocalStorage(storageName:string){
-        return localStorage[storageName]
+    private haslocalStorage(storageName:string){
+        return localStorage[storageName];
     }
 }

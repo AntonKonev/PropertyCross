@@ -1,25 +1,31 @@
-<div class="container">
-    <div class="nav-panel">
-        <button (click)="goBack()">Back</button>
-        <button (click)="goHome()">Home</button>
-        <button (click)="goToFaves()">Faves</button>
-        <button (click)="addToFaves(dataOfHouse)" *ngIf="!flagOfFaves">Add to faves</button>
-        <button (click)="removeFromFaves(dataOfHouse)" *ngIf="flagOfFaves">Remove from Faves</button>
+<div class="container font-weight-bold">
+    <div class="navbar bg-light justify-content-around">
+        <form class="form-inline">
+            <button class="btn btn-primary" (click)="goBack()">Back</button>
+            <button class="btn btn-primary" (click)="goHome()">Home</button>
+            <button class="btn btn-primary" (click)="goToFaves()">Faves</button>
+            <button class="btn btn-primary" (click)="addToFaves(dataOfHouse)" *ngIf="!flagOfFaves">Add to faves</button>
+            <button class="btn btn-primary" (click)="removeFromFaves(dataOfHouse)" *ngIf="flagOfFaves">Remove from Faves</button>
+        </form>
     </div>
-    <div class="inform-window" *ngIf="dataOfHouse">
-        <div class="general-inform">
-            <p>{{dataOfHouse.price_formatted}}</p>
-            <p>{{dataOfHouse.title}}</p>
+    <div class="jumbotron border border-secondary bg-light" *ngIf="dataOfHouse">
+        <div>
+            <h1>{{dataOfHouse.price_currency}}{{dataOfHouse.price | pricePipe}}</h1>
+            <h3>{{dataOfHouse.title}}</h3>
         </div>
-        <div class="img">
+        <div>
             <img src="{{dataOfHouse.img_url}}" alt="Img">
         </div>
-        <div class="detail-inform">
-            <p>{{dataOfHouse.bedroom_number}} bedrooms,{{dataOfHouse.bathroom_number}} bathrooms</p>
+        <div>
+            <p>{{dataOfHouse.bedroom_number}} bedrooms</p>
+            <p *ngIf="dataOfHouse.bathroom_number">{{dataOfHouse.bathroom_number}} bathrooms</p>
             <p>{{dataOfHouse.summary}}</p>
         </div>
     </div>
-    <div class="inform-window" *ngIf="!dataOfHouse">
+    <div class="jumbotron text-center" *ngIf="!dataOfHouse">
         <h1>No selected house</h1>
     </div>
 </div>
+
+
+

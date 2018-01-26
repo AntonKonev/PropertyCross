@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ListSearchesService } from '../../services/list-searches-service/list-searches.service';
-import { DataFromServerService } from '../../services/data-from-server-service/data-from-server.service';
-import { Subscription } from 'rxjs/Subscription';
+
+import { DataFromServerService } from 'src/app/services/data-from-server-service/data-from-server.service';
+import { ListSearchesService } from 'src/app/services/list-searches-service/list-searches.service';
+import { RedirectionService } from 'src/app/services/redirection-service/redirection.service';
+
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
+import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
 
 const myLocation: string = 'My Location'
@@ -12,6 +14,7 @@ const myLocation: string = 'My Location'
     selector: 'app-home-component',
     templateUrl: './home-component.component.html',
     styleUrls: ['./home-component.component.css']
+
 })
 export class HomeComponentComponent implements OnInit {
     public cityTextField: string;
@@ -23,21 +26,21 @@ export class HomeComponentComponent implements OnInit {
     public coords: string;
     private dataSubscription: Subscription;
     public search = {
-        textOfRequest: "",
-        unformatedUrl: "",
+        textOfRequest: '',
+        unformatedUrl: '',
         result: 0,
         total_pages: 0,
         curPage: 1
     };
 
     constructor(
-        private router: Router,
         private list: ListSearchesService,
-        private data: DataFromServerService
+        private data: DataFromServerService,
+        private redirect: RedirectionService
     ) {}
 
     public goToFaves(): void {
-        this.router.navigate(['faves-component']);
+        this.redirect.redirectToFaves();
     }
 
     public goToRecentSearch(searchInform, index): void {
@@ -56,7 +59,7 @@ export class HomeComponentComponent implements OnInit {
     public searchLocation(param: string = 'newcastle'): void {
         param = param.trim();
         if (param == "") {
-            param = "newcastle"
+            param = "newcastle";
         }
         param = `place_name=${param}`;
         this.makeRequest(param);
@@ -66,7 +69,7 @@ export class HomeComponentComponent implements OnInit {
         return this.recentSearches.length === 0 && !this.errMassage;
     }
 
-    private configSearchObj(addUrl: string, {response:{total_results,total_pages }}): void {
+    private configSearchObj(addUrl: string, {response: {total_results,total_pages}}): void {
         addUrl.search(/centre_point=/i) !== -1 ? this.search.textOfRequest = myLocation : this.search.textOfRequest = addUrl.slice(11);
         this.search.unformatedUrl = addUrl;
         this.search.result = total_results - 1;
@@ -77,7 +80,7 @@ export class HomeComponentComponent implements OnInit {
         this.data.setDataFromServer(listings);
         this.data.setErrMassage(application_response_code, data);
         this.configSearchObj(addUrl, data);
-        if(!this.data.getErrMassage()) {
+        if(!this.data.errMassage) {
             this.list.setSearch(this.search);
         }
     }
@@ -89,7 +92,7 @@ export class HomeComponentComponent implements OnInit {
     }
 
     public setCurrentCoords(): void {
-        navigator.geolocation.getCurrentPosition(({coords:{latitude,longitude}}) => {
+        navigator.geolocation.getCurrentPosition(({coords: {latitude,longitude}}) => {
             this.coords = `centre_point=${latitude},${longitude}`;
             // //this.coords = "centre_point=51.684183,-3.431481" //for testing My Location Button
         });
@@ -102,20 +105,20 @@ export class HomeComponentComponent implements OnInit {
             this.timerSubscription.unsubscribe();
             this.configDataOfResponse(data, addUrl);
 
-            if (!this.data.getErrMassage()) {
-                this.router.navigate(["search-component"]);
+            if (!this.data.errMassage) {
+                this.redirect.redirectToSearch();
             } else {
-                this.showException(this.data.getErrMassage());
+                this.showException(this.data.errMassage);
             }
         });
 
         this.timerOfGettingData = TimerObservable.create(5000);
         this.timerSubscription = this.timerOfGettingData.subscribe(() => {
             this.dataSubscription.unsubscribe();
-            console.log(this.data.getDataFromServer());
-            if (!this.data.getDataFromServer().length) {
+            console.log(this.data.dataFromServer);
+            if (!this.data.dataFromServer.length) {
                 this.data.setErrMassage("999");
-                this.showException(this.data.getErrMassage());
+                this.showException(this.data.errMassage);
             }
             this.timerSubscription.unsubscribe();
         });
@@ -126,6 +129,6 @@ export class HomeComponentComponent implements OnInit {
         this.setCurrentCoords();
         this.recentSearches = this.list.getListOfSearches();
         this.data.clearData();
-        this.errMassage = this.data.getErrMassage();
+        this.errMassage = this.data.errMassage;
     }
 }

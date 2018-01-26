@@ -1,29 +1,26 @@
-<div class="container">
-    <div class="top-panel">
-        <button class="goBackBtn" (click)="goBack()">Back</button>
+<div class="container font-weight-bold">
+    <div class="navbar bg-light justify-content-between">
+        <button class="btn btn-primary" (click)="goBack()">Back</button>
         <h1>Favourites</h1>
-        <button class="home" (click)="goHome()">Home</button>
+        <button class="btn btn-primary" (click)="goHome()">Home</button>
     </div>
-    <div class="massage" *ngIf="listOfFaves.length === 0">
-        You have not added any properties to your favourites
+    <div class="jumbotron text-center" *ngIf="listOfFaves.length === 0">
+        <h2>You have not added any properties to your favourites</h2>
     </div>
     <ng-container *ngFor="let house of listOfFaves">
-        <div class="house">
-            <div class="nav-panel">
-                <button (click)="removeFromFaves(house)">Remove from faves</button>
+        <div class="jumbotron border border-secondary bg-light" *ngIf="house">
+            <button class="btn btn-primary" (click)="removeFromFaves(house)">Remove from faves</button>
+            <div>
+                <h1>{{house.price_currency}}{{house.price | pricePipe}}</h1>
+                <h3>{{house.title}}</h3>
             </div>
-            <div class="inform-window">
-                <div class="general-inform">
-                    <p>{{house.price_formatted}}</p>
-                    <p>{{house.title}}</p>
-                </div>
-                <div class="img">
-                    <img src="{{house.img_url}}" alt="Img">
-                </div>
-                <div class="detail-inform">
-                    <p>{{house.bedroom_number}} bedrooms,{{house.bathroom_number}} bathrooms</p>
-                    <p>{{house.summary}}</p>
-                </div>
+            <div>
+                <img src="{{house.img_url}}" alt="Img">
+            </div>
+            <div>
+                <p>{{house.bedroom_number}} bedrooms</p>
+                <p *ngIf="house.bathroom_number">{{house.bathroom_number}} bathrooms</p>
+                <p>{{house.summary}}</p>
             </div>
         </div>
     </ng-container>

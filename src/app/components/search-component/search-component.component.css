@@ -1,56 +1,28 @@
-.top-panel {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  position: relative;
-  margin: 20px;
-  font-family: Arial;
-}
-
-.button {
-margin: 15px;
-}
-
 img {
-  width: 160px;
-  height: 120px;
+    width: 160px;
+    height: 120px;
+    margin-left: 15px;
 }
 
-.house {
-  border: solid 2px blue;
-  border-radius: 30px;
-  margin: 10px;
-  width: 700px;
-  height: 150px;
-  font-family: Arial;
+.jumbotron {
+    cursor: pointer;
+    background: #f8f9fa;
+    margin: 15px;
+    padding: 20px;
 }
 
-.house:hover{
-  background: rgba(215, 241, 44, 0.08);
-  box-shadow: none;
-  cursor: pointer;
-  border: solid 2px green;
+.jumbotron:hover {
+    background: lightgrey;
 }
 
-.imageDiv {
-  width: 160px;
-  height: 120px;
-  float: left;
-  margin: 10px;
+.btn {
+    margin: 15px;
 }
 
-.descriptionDiv {
-  margin: 10px;
+p {
+    margin: 15px;
 }
 
 .loadMoreBtn {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.displayInform {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    text-align: center;
 }

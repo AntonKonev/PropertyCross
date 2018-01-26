@@ -1,34 +1,36 @@
 <div class="container">
     <div class="loading" *ngIf="!isSearchInProgress">Loading...</div>
-    <div class="main-element" *ngIf="isSearchInProgress">
+    <div class="jumbotron border border-secondary position-relative bg-light" *ngIf="isSearchInProgress">
         <header>
-            <h1 class="header_h1">PropertyCross</h1>
-            <button class="btn-faves" (click)="goToFaves()">Faves</button>
-            <h3 class="header-text">
+            <h1 class="text-center">PropertyCross</h1>
+            <button class="btn btn-primary " (click)="goToFaves()">Faves</button>
+            <h3>
                 Use the form below to search for houses to buy. You can search by place-name, postcode, or click
                 'My Location', to search in your current location
             </h3>
         </header>
         <section class="search-section">
-            <input (keyup.enter)="searchLocation(cityTextField)" name="text-field" placeholder="Enter the City"
+            <input class="form-control"
+                   (keyup.enter)="searchLocation(cityTextField)"
+                   placeholder="Enter the City"
                    [(ngModel)]="cityTextField">
-            <button (click)="searchLocation(cityTextField)">Go</button>
-            <button (click)="searchOnMyLocation()">My Location</button>
+            <button class="btn btn-primary" (click)="searchLocation(cityTextField)">Go</button>
+            <button class="btn btn-primary" (click)="searchOnMyLocation()">My Location</button>
         </section>
-        <section class="error-message-section" *ngIf="errMassage">
-            <h2>Error message</h2>
-            <div class="massage-recent-search">
-                {{errMassage}}
+        <section *ngIf="errMassage">
+            <h2 class="text-center">Error message</h2>
+            <div class="alert alert-danger text-center">
+                <strong>{{errMassage}}</strong>
             </div>
         </section>
         <section class="recent-search">
-            <h2>Recent searches</h2>
-            <div class="inquiries">
-                <div class="massage-recent-search" *ngIf="isNoRecentSearches">
-                    No recent searches
+            <h2 class="text-center">Recent searches</h2>
+            <div class="jumbotron border border-secondary position-relative">
+                <div class="text-center" *ngIf="isNoRecentSearches">
+                    <strong>No recent searches</strong>
                 </div>
                 <ng-container *ngFor="let search of recentSearches, let i = index">
-                    <div (click)="goToRecentSearch(search, i)" class="recent-search-result">
+                    <div (click)="goToRecentSearch(search, i)" class="recent-search-result btn-primary text-center">
                         Search #{{i+1}}: {{search.textOfRequest}} ({{search.result}})
                     </div>
                 </ng-container>

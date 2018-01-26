@@ -1,22 +1,24 @@
-<div class="top-panel">
-    <button class="button" (click)="goBack()">Back</button>
-    <div class="header"> <p>{{curResults}} of {{totalResults}} matches</p></div>
-    <button class="button" (click)="goToFaves()">Faves</button>
-</div>
-<div class="displayInform">
+<div class="container">
+    <div class="navbar">
+        <button class="btn btn-primary " (click)="goBack()">Back</button>
+        <div class="font-weight-bold"><p>{{curResults}} of {{totalResults}} matches</p></div>
+        <button class="btn btn-primary " (click)="goToFaves()">Faves</button>
+    </div>
+
     <ng-container *ngFor="let house of dataFromServer; let i = index ">
-        <div class="house" (click)="selectHouse(house)">
-            <div class="imageDiv">
+        <div class="jumbotron border border-secondary" (click)="selectHouse(house)">
+            <div class="row">
                 <img src="{{house.img_url}}" alt="img">
-            </div>
-            <div class="descriptionDiv">
-                <p>Price of house: {{house.price_formatted}}</p>
-                <p>{{house.summary}}</p>
+                <div>
+                    <p class="font-weight-bold">Price of house: {{house.price_currency}}{{house.price | pricePipe}}</p>
+                    <p class="font-weight-bold">{{house.summary}}</p>
+                </div>
             </div>
         </div>
     </ng-container>
+    <div class="loadMoreBtn">
+        <button class="btn btn-primary" (click)="loadMore()" [disabled]="btnLoadMoreStatus">Load More</button>
+    </div>
 </div>
-<div class="loadMoreBtn">
-    <button (click)="loadMore()" [disabled]="btnLoadMoreStatus">Load More</button>
-</div>
+
 
