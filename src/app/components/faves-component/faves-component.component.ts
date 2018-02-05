@@ -14,7 +14,7 @@ export class FavesComponentComponent implements OnInit {
 
     constructor(
         private list: ListFavesService,
-        private _location: Location,
+        private location: Location,
         private redirection: RedirectionService
     ) {
     }
@@ -24,15 +24,15 @@ export class FavesComponentComponent implements OnInit {
     }
 
     public goBack(): void {
-        this._location.back();
+        this.location.back();
     }
 
     public goHome(): void {
         this.redirection.redirectToHome();
     }
 
-    public removeFromFaves(house: any): void {
-        this.list.deleteElementFromList(house);
+    public removeFromFaves({lister_url: urlOfRemovedHouse}): void {
+        this.list.deleteElementFromList(urlOfRemovedHouse);
     }
 
 

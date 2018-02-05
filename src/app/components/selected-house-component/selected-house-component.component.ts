@@ -18,7 +18,7 @@ export class SelectedHouseComponentComponent implements OnInit {
     constructor(
         private selected: SelectedHouseService,
         private list: ListFavesService,
-        private _location: Location,
+        private location: Location,
         private redirect: RedirectionService
     ) {
         this.flagOfFaves = true;
@@ -28,13 +28,13 @@ export class SelectedHouseComponentComponent implements OnInit {
         this.dataOfHouse = this.selected.dataOfSelectedHouse;
         console.log(this.dataOfHouse);
         if(this.dataOfHouse) {
-            this.checkingOfUniq(this.dataOfHouse);
+            this.checkUniqState(this.dataOfHouse);
         }
 
     }
 
     public goBack(): void {
-        this._location.back();
+        this.location.back();
     }
 
     public goHome(): void {
@@ -46,13 +46,13 @@ export class SelectedHouseComponentComponent implements OnInit {
         this.list.setData(dataOfHouse);
     }
 
-    public removeFromFaves(dataOfHouse: any): void {
+    public removeFromFaves({lister_url: urlOfRemovedHouse}): void {
         this.flagOfFaves = false;
-        this.list.deleteElementFromList(dataOfHouse);
+        this.list.deleteElementFromList(urlOfRemovedHouse);
     }
 
-    public checkingOfUniq (house: any): void {
-        this.flagOfFaves = this.list.chekingOfUniq(house);
+    public checkUniqState ({lister_url: urlOfSelectedHouse}): void {
+        this.flagOfFaves = this.list.checkUniqState(urlOfSelectedHouse);
     }
 
     public goToFaves(): void {

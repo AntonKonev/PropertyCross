@@ -58,25 +58,26 @@ export class HomeComponentComponent implements OnInit {
 
     public searchLocation(param: string = 'newcastle'): void {
         param = param.trim();
-        if (param == "") {
-            param = "newcastle";
+        if (param == '') {
+            param = 'newcastle';
         }
         param = `place_name=${param}`;
         this.makeRequest(param);
     }
 
     public get isNoRecentSearches() {
-        return this.recentSearches.length === 0 && !this.errMassage;
+        return !this.recentSearches.length && !this.errMassage;
     }
 
-    private configSearchObj(addUrl: string, {response: {total_results,total_pages}}): void {
-        addUrl.search(/centre_point=/i) !== -1 ? this.search.textOfRequest = myLocation : this.search.textOfRequest = addUrl.slice(11);
+    private configSearchObj(addUrl: string, {response: { total_results, total_pages }}): void {
+        this.search.textOfRequest = addUrl.search(/centre_point=/i) !== -1 ?  myLocation : addUrl.slice(11);
         this.search.unformatedUrl = addUrl;
         this.search.result = total_results - 1;
         this.search.total_pages = total_pages + 1;
     }
 
-    private configDataOfResponse(data: any, addUrl: string,{response:{application_response_code,listings}} = data): void {
+    private configDataOfResponse(data: any, addUrl: string): void {
+        const {response: { application_response_code, listings }} = data;
         this.data.setDataFromServer(listings);
         this.data.setErrMassage(application_response_code, data);
         this.configSearchObj(addUrl, data);
@@ -85,20 +86,20 @@ export class HomeComponentComponent implements OnInit {
         }
     }
 
-    public showException(error) {
+    public showException(error): void{
         this.errMassage = error;
         this.cityTextField = '';
         this.isSearchInProgress = true;
     }
 
     public setCurrentCoords(): void {
-        navigator.geolocation.getCurrentPosition(({coords: {latitude,longitude}}) => {
+        navigator.geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
             this.coords = `centre_point=${latitude},${longitude}`;
             // //this.coords = "centre_point=51.684183,-3.431481" //for testing My Location Button
         });
     }
 
-    public makeRequest(addUrl?: string) {
+    public makeRequest(addUrl?: string): void{
         this.isSearchInProgress = false;
         this.data.clearErrMassage();
         this.dataSubscription = this.data.makeRequestForData(addUrl).subscribe(data => {

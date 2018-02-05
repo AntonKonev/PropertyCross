@@ -20,9 +20,9 @@ export class ListFavesService {
         return this._listOfFaves;
     }
 
-    public deleteElementFromList(house: any): void {
-        let pos: number = this.listOfFaves.findIndex(element => {
-            if (element.lister_url.slice(34, 59) === house.lister_url.slice(34, 59)) {
+    public deleteElementFromList(urlOfRemovedHouse: string): void {
+        const pos: number = this.listOfFaves.findIndex(({lister_url: urlOfFaveHouse}) => {
+            if (urlOfFaveHouse.slice(34, 59) === urlOfRemovedHouse.slice(34, 59)) {
                 return true;
             }
         });
@@ -30,10 +30,10 @@ export class ListFavesService {
         this.localstorage.setData('listOfFaves', this.listOfFaves);
     }
 
-    public chekingOfUniq(house: any): boolean {
+    public checkUniqState(urlOfSelectedHouse: string): boolean {
         let result: boolean = false;
-        this.listOfFaves.forEach(element => {
-            if (element.lister_url.slice(34, 59) === house.lister_url.slice(34, 59)) {
+        this.listOfFaves.forEach(({lister_url: urlOfFaveHouse}) => {
+            if (urlOfFaveHouse.slice(34, 59) === urlOfSelectedHouse.slice(34, 59)) {
                 result = true;
             }
         });

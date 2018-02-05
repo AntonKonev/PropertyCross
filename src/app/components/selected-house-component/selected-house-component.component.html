@@ -10,7 +10,7 @@
     </div>
     <div class="jumbotron border border-secondary bg-light" *ngIf="dataOfHouse">
         <div>
-            <h1>{{dataOfHouse.price_currency}}{{dataOfHouse.price | pricePipe}}</h1>
+            <h1>{{dataOfHouse.price | pricePipe: dataOfHouse.price_currency}}</h1>
             <h3>{{dataOfHouse.title}}</h3>
         </div>
         <div>

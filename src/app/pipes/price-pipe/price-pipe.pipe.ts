@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PricePipePipe implements PipeTransform {
 
-    transform(value:number):string {
+    transform(value: number = 0, currency: string = 'No data of currency'):string {
         let count: number = 0,
             stringValue: string = value + '',
             res: Array<string> = [];
@@ -21,6 +21,6 @@ export class PricePipePipe implements PipeTransform {
                 res.unshift(',')
             }
         }
-        return res.join('');
+        return currency + res.join('');
     }
 }

@@ -13,7 +13,7 @@ import { TimerObservable } from 'rxjs/observable/TimerObservable';
 @Component({
     selector: 'app-search-component',
     templateUrl: './search-component.component.html',
-    styleUrls: ['./search-component.component.css'],
+    styleUrls: ['./search-component.component.css']
 })
 
 export class SearchComponentComponent implements OnInit {
@@ -31,7 +31,7 @@ export class SearchComponentComponent implements OnInit {
         private data: DataFromServerService,
         private selected: SelectedHouseService,
         private listOfSearches: ListSearchesService,
-        private _location: Location,
+        private location: Location,
         private redirect: RedirectionService
     ) {}
 
@@ -43,7 +43,7 @@ export class SearchComponentComponent implements OnInit {
     };
 
     public goBack(): void {
-        this._location.back();
+        this.location.back();
     }
 
     public goToFaves(): void {
@@ -62,7 +62,7 @@ export class SearchComponentComponent implements OnInit {
     public loadMore(): void {
         this.listOfSearches.getLastSearch().curPage++;
         this.btnLoadMoreStatus = true;
-        let {unformatedUrl, curPage} = this.listOfSearches.getLastSearch();
+        const {unformatedUrl, curPage} = this.listOfSearches.getLastSearch();
         this.dataSubscription = this.data.makeRequestForData(unformatedUrl,curPage)
             .subscribe((data, {response: {listings}} = data) => {
             this.data.setDataFromServer(listings);

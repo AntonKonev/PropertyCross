@@ -10,7 +10,7 @@
             <div class="row">
                 <img src="{{house.img_url}}" alt="img">
                 <div>
-                    <p class="font-weight-bold">Price of house: {{house.price_currency}}{{house.price | pricePipe}}</p>
+                    <p class="font-weight-bold">Price of house: {{house.price | pricePipe: house.price_currency}}</p>
                     <p class="font-weight-bold">{{house.summary}}</p>
                 </div>
             </div>
