@@ -26,7 +26,6 @@ export class SelectedHouseComponentComponent implements OnInit {
 
     ngOnInit(): void {
         this.dataOfHouse = this.selected.dataOfSelectedHouse;
-        console.log(this.dataOfHouse);
         if(this.dataOfHouse) {
             this.checkUniqState(this.dataOfHouse);
         }

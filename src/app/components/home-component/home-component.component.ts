@@ -72,7 +72,7 @@ export class HomeComponentComponent implements OnInit {
     private configSearchObj(addUrl: string, {response: { total_results, total_pages }}): void {
         this.search.textOfRequest = addUrl.search(/centre_point=/i) !== -1 ?  myLocation : addUrl.slice(11);
         this.search.unformatedUrl = addUrl;
-        this.search.result = total_results - 1;
+        this.search.result = total_results;
         this.search.total_pages = total_pages + 1;
     }
 
@@ -103,6 +103,7 @@ export class HomeComponentComponent implements OnInit {
         this.isSearchInProgress = false;
         this.data.clearErrMassage();
         this.dataSubscription = this.data.makeRequestForData(addUrl).subscribe(data => {
+            console.log(data);
             this.timerSubscription.unsubscribe();
             this.configDataOfResponse(data, addUrl);
 
